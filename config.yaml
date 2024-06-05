@@ -27,3 +27,13 @@
   template1 : "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: ASSISTANT:"
   template2 : "ASSISTANT:"
 
+- name: llm-jp/llm-jp-13b-instruct-full-ac_001_16x-dolly-ichikara_004_001_single-oasst-oasst2-v2.0
+  PORT: 8003
+  max-model-len: 4000
+  gpu-memory-utilization: 0.4
+  GPU_ID: 1
+  template1 : "### 指示:\n以下は、タスクを説明する指示です。要求を適切に満たす応答を書きなさい。"
+  #template1 : "### 指示:\n"
+  template2 : "\n\n### 応答:\n"
+  #template2 : ""
+  max_tokens: 2000
