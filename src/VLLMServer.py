@@ -6,7 +6,7 @@ def ask_llm(client_dict, model_name, question,
 
             ):
     client = client_dict[model_name]["client"]
-    model = client_dict[model_name]["model"]
+    model = client_dict[model_name]["name"]
     completion = client.chat.completions.create(
         model=model,
         messages=[
@@ -16,6 +16,18 @@ def ask_llm(client_dict, model_name, question,
     )
 
     return completion.choices[0].message.content.strip()
+
+
+def ask_llm_prompt(client_dict, model_name, question,):
+    client = client_dict[model_name]["client"]
+
+    template1 = client_dict[model_name]["config"]["template1"]
+    template2 = client_dict[model_name]["config"]["template2"]
+    prompt = template1+question+template2
+    completion = client.completions.create(model=model_name,
+                                           prompt=prompt,
+                                           max_tokens=int(client_dict[model_name]["config"]["max_tokens"]))
+    return completion.choices[0].text  # .message.content.strip()
 
 
 def get_client_dict(conf):
@@ -31,7 +43,10 @@ def get_client_dict(conf):
         )
         name = model_conf["name"]
         server_dict[name] = {
-            "model": model_conf["model"], "client": client}
+            # "model": model_conf["model"],
+            "client": client,
+            "config": model_conf,
+        }
 
     return server_dict
 
@@ -46,7 +61,7 @@ def launch_command(conf):
 
 def _launch_command(model_conf):
     cmd = ""
-    model_name = model_conf["model"]
+    model_name = model_conf["name"]
     port = model_conf["PORT"]
     gpu_id = model_conf["GPU_ID"]
     max_model_len = model_conf["max-model-len"]

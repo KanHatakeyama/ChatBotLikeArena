@@ -5,7 +5,7 @@ from src.GeneralBot import GeneralBot
 import datetime
 import time
 import random
-from src.VLLMServer import launch_command, get_client_dict, ask_llm
+from src.VLLMServer import launch_command, get_client_dict, ask_llm_prompt
 
 # %%
 import yaml
@@ -48,10 +48,10 @@ while True:
     print(question)
     try:
         model_name_A, model_name_B = random.sample(model_list, 2)
-        responseA = ask_llm(client_dict, model_name_A, question)
-        responseB = ask_llm(client_dict, model_name_B, question)
-        meta1 = client_dict[model_name_A]["model"]
-        meta2 = client_dict[model_name_B]["model"]
+        responseA = ask_llm_prompt(client_dict, model_name_A, question)
+        responseB = ask_llm_prompt(client_dict, model_name_B, question)
+        meta1 = model_name_A
+        meta2 = model_name_B
         meta3 = datetime.datetime.now().isoformat()
 
         client.answer(row_id, responseA, responseB, metainfo1=meta1,

@@ -1,26 +1,29 @@
 # add server info
-- name: Tanuki-8B-Instruct
+- name: hatakeyama-llm-team/Tanuki-8B-Instruct
   PORT: 8000
-  model: hatakeyama-llm-team/Tanuki-8B-Instruct
   max-model-len: 4000
   gpu-memory-utilization: 0.2
   GPU_ID: 1
-  template1: ""
-  template2: ""
+  template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
+  template2 : "\n\n### 応答:\n"
+  max_tokens: 2000
 
-- name: Phi-3-medium-128k-instruct
+- name: microsoft/Phi-3-medium-128k-instruct
   PORT: 8001
-  model: microsoft/Phi-3-medium-128k-instruct
   max-model-len: 4000
   gpu-memory-utilization: 0.4
   GPU_ID: 1
+  template1 : "<|user|>\n"
+  template2 : "<|end|>\n<|assistant|>"
+  max_tokens: 2000
 
-#templateがうまくいかない
-#- name: RakutenAI-7B-chat
-#  PORT: 8002
-#  model: Rakuten/RakutenAI-7B-chat
-#  max-model-len: 4000
-#  gpu-memory-utilization: 0.2
-#  GPU_ID: 0
-#  #template: templates/RakutenAI-7B-chat.jinja
+- name: Rakuten/RakutenAI-7B-chat
+  PORT: 8002
+  model: Rakuten/RakutenAI-7B-chat
+  max-model-len: 4000
+  gpu-memory-utilization: 0.2
+  max_tokens: 2000
+  GPU_ID: 0
+  template1 : "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: ASSISTANT:"
+  template2 : "ASSISTANT:"
 
