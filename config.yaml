@@ -27,6 +27,18 @@
   template1 : "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: ASSISTANT:"
   template2 : "ASSISTANT:"
 
+- name: karakuri-ai/karakuri-lm-8x7b-chat-v0.1
+  PORT: 8010
+  model: karakuri-ai/karakuri-lm-8x7b-chat-v0.1
+  max-model-len: 4000
+  max_tokens: 2000
+  GPU_ID: 3,4
+  tensor-parallel-size: 2
+  template1 : "<s>[INST]"
+  template2 : "[/INST]"
+
+
+
 #templateが間違っているのか、うまく動かない
 #- name: llm-jp/llm-jp-13b-instruct-full-ac_001_16x-dolly-ichikara_004_001_single-oasst-oasst2-v2.0
 #  PORT: 8003

@@ -65,13 +65,17 @@ def _launch_command(model_conf):
     port = model_conf["PORT"]
     gpu_id = model_conf["GPU_ID"]
     max_model_len = model_conf["max-model-len"]
-    gpu_util = model_conf["gpu-memory-utilization"]
     cmd += f"export CUDA_VISIBLE_DEVICES={gpu_id}\n"
     cmd += f"""python -m vllm.entrypoints.openai.api_server \
 --model {model_name} --max-model-len {max_model_len} --port {port} \
---gpu-memory-utilization {gpu_util} """
-
+"""
+    if "tensor-parallel-size" in model_conf:
+        tensor_parallel_size = model_conf["tensor-parallel-size"]
+        cmd+=f"--tensor-parallel-size {tensor_parallel_size} "
+    if "gpu-memory-utilization" in model_conf:
+        gpu_util = model_conf["gpu-memory-utilization"]
+        cmd+=f"--gpu-memory-utilization {gpu_util} "
     if "template" in model_conf:
         template = model_conf["template"]
-        cmd += f"--chat-template {template}"
+        cmd += f"--chat-template {template} "
     return cmd
