@@ -42,7 +42,7 @@ while True:
     row_id, question, inst = client.get_unanswered_question()
     if question == "":
         print("no question to answer")
-        time.sleep(10)
+        time.sleep(5)
         continue
 
     print(question)
