@@ -15,7 +15,7 @@ def ask_llm(client_dict, model_name, question,
         ]
     )
 
-    return completion.choices[0].message.content
+    return completion.choices[0].message.content.strip()
 
 
 def get_client_dict(conf):
@@ -39,7 +39,7 @@ def get_client_dict(conf):
 def launch_command(conf):
     cmd = ""
     for model_conf in conf:
-        cmd += _launch_command(model_conf)+"\n"
+        cmd += _launch_command(model_conf)+"\n\n"
 
     return cmd
 
