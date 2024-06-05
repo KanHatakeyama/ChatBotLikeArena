@@ -27,7 +27,7 @@ def ask_llm_prompt(client_dict, model_name, question,):
     completion = client.completions.create(model=model_name,
                                            prompt=prompt,
                                            max_tokens=int(client_dict[model_name]["config"]["max_tokens"]))
-    return completion.choices[0].text  # .message.content.strip()
+    return completion.choices[0].text.strip()  # .message.content.strip()
 
 
 def get_client_dict(conf):

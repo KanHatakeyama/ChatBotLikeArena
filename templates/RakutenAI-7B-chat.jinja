@@ -1,7 +1,0 @@
-{% for message in messages %}
-  {% if message['role'] == 'user' %}
-    {{ 'A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER:' + message['content'] + ' ASSISTANT:"' }}
-  {% elif message['role'] == 'assistant' %}
-    {{ message['content'] }}
-  {% endif %}
-{% endfor %}
