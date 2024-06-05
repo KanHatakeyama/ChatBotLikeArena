@@ -15,11 +15,12 @@
   gpu-memory-utilization: 0.4
   GPU_ID: 1
 
-- name: RakutenAI-7B-chat
-  PORT: 8002
-  model: Rakuten/RakutenAI-7B-chat
-  max-model-len: 4000
-  gpu-memory-utilization: 0.2
-  GPU_ID: 0
-  template: templates/RakutenAI-7B-chat.jinja
+#templateがうまくいかない
+#- name: RakutenAI-7B-chat
+#  PORT: 8002
+#  model: Rakuten/RakutenAI-7B-chat
+#  max-model-len: 4000
+#  gpu-memory-utilization: 0.2
+#  GPU_ID: 0
+#  #template: templates/RakutenAI-7B-chat.jinja
 
