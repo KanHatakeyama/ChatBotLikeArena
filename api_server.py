@@ -39,7 +39,12 @@ model_list = list(client_dict.keys())
 
 # %%
 while True:
-    row_id, question, inst = client.get_unanswered_question()
+    try:
+        row_id, question, inst = client.get_unanswered_question()
+    except Exception as e:
+        print(e)
+        time.sleep(5)
+        continue
     if question == "":
         print("no question to answer")
         time.sleep(5)
