@@ -33,7 +33,7 @@
   max-model-len: 4000
   max_tokens: 2000
   GPU_ID: 5
-  template1 : "<|im_start|>あなたは有用なアシスタントです。次の質問に日本語で回答してください。<|im_end|>\n<|im_start|>"
+  template1 : "<|im_start|>あなたは有用なアシスタントです。次の質問に日本語で回答してください。<|im_end|>\n<|im_start|>user\n"
   template2 : "<|im_end|><|im_start|>assistant\n"
 
 
