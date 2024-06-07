@@ -47,8 +47,8 @@
   template1 : "<s>[INST]"
   template2 : "[/INST]"
 
-#GGUFで起動
-#python3 -m llama_cpp.server --model /home/hatakeyama/python/ChatServer/model/Mixtral-8x22B-Instruct-v0.1.Q5_K_M-00001-of-00004.gguf --port 8011
+#mixtral 8x22bの5bitモデル
+#GGUFで起動する。
 #python3 -m llama_cpp.server --model /home/hatakeyama/python/ChatServer/model/Mixtral-8x22B-Instruct-v0.1.Q5_K_M-00001-of-00004.gguf --port 8011 --n_gpu_layers 300
 - name: models--mistralai--Mixtral-8x22B-Instruct-v0.1
   PORT: 8011
