@@ -56,7 +56,7 @@
   max-model-len: 4000
   max_tokens: 2000
   GPU_ID: 6,7
-  template1 : "<s>[INST]"
+  template1 : "<s>[INST]日本語で回答してください。"
   template2 : "[/INST]"
 
 
