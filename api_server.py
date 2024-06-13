@@ -63,7 +63,7 @@ while True:
                       metainfo2=meta2, metainfo3=meta3)
     except Exception as e:
         print(e)
-        time.sleep(30)
+        time.sleep(5)
 
 
 # %%
