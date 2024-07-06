@@ -1,6 +1,20 @@
 from openai import OpenAI
 # "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {user_input} ASSISTANT:"
 
+# nemotron関係
+API_KEY_NEMOTRON = ""
+
+try:
+    with open("env/nemotron.key", "r") as f:
+        API_KEY_NEMOTRON = f.read().strip()
+    nemotron = OpenAI(
+        api_key=API_KEY_NEMOTRON,
+        base_url="https://api.deepinfra.com/v1/openai",
+    )
+except Exception as e:
+    print("failed to setup nemotron api")
+    print(e)
+
 
 def ask_llm(client_dict, model_name, question,
 
@@ -19,6 +33,23 @@ def ask_llm(client_dict, model_name, question,
 
 
 def ask_llm_prompt(client_dict, model_name, question,):
+
+    # nemotronのapiで呼び出す場合
+    if model_name == "nvidia/Nemotron-4-340B-Instruct":
+        chat_completion = nemotron.chat.completions.create(
+            model="nvidia/Nemotron-4-340B-Instruct",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "あなたは優秀で誠実なアシスタントです｡次の質問に日本語で丁寧に回答しなさい｡"
+                },
+                {"role": "user", "content": question}],
+        )
+
+        return chat_completion.choices[0].message.content
+
+    # 通常のローカルモデル
+
     client = client_dict[model_name]["client"]
 
     template1 = client_dict[model_name]["config"]["template1"]
@@ -71,10 +102,10 @@ def _launch_command(model_conf):
 """
     if "tensor-parallel-size" in model_conf:
         tensor_parallel_size = model_conf["tensor-parallel-size"]
-        cmd+=f"--tensor-parallel-size {tensor_parallel_size} "
+        cmd += f"--tensor-parallel-size {tensor_parallel_size} "
     if "gpu-memory-utilization" in model_conf:
         gpu_util = model_conf["gpu-memory-utilization"]
-        cmd+=f"--gpu-memory-utilization {gpu_util} "
+        cmd += f"--gpu-memory-utilization {gpu_util} "
     if "template" in model_conf:
         template = model_conf["template"]
         cmd += f"--chat-template {template} "

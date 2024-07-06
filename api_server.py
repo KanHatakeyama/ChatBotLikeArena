@@ -36,9 +36,12 @@ client = Client(url)
 # %%
 model_list = list(client_dict.keys())
 
+question_count = 0
 
 # %%
 while True:
+    if question_count > 1000:
+        break
     try:
         row_id, question, inst = client.get_unanswered_question()
     except Exception as e:
@@ -61,6 +64,7 @@ while True:
 
         client.answer(row_id, responseA, responseB, metainfo1=meta1,
                       metainfo2=meta2, metainfo3=meta3)
+        question_count += 1
     except Exception as e:
         print(e)
         time.sleep(5)
