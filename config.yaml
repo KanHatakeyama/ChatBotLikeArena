@@ -1,27 +1,45 @@
 #add server info
 #- name: hatakeyama-llm-team/Tanuki-8B-Instruct
 #  PORT: 8000
-#  max-model-len: 4000
-#  gpu-memory-utilization: 0.2
+#  max-model-len: 3000
+#  gpu-memory-utilization: 0.8
 #  GPU_ID: 0
 #  template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
 #  template2 : "\n\n### 応答:\n"
 #  max_tokens: 2000
 
-#nemotronはapi keyで使う
-- name: nvidia/Nemotron-4-340B-Instruct
-  PORT: 9999
-  max-model-len: 4000
+- name: team-hatakeyama-phase2/8b-iter-0719cleanediter-0006400-to-pass4-exp001-zero1-to-pass4-exp002-dpo-full-006-zero2
+  PORT: 8000
+  max-model-len: 2048
+  gpu-memory-utilization: 0.8
   GPU_ID: 0
+  template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
+  template2 : "\n\n### 応答:\n"
+  max_tokens: 1000
 
-- name: microsoft/Phi-3-medium-128k-instruct
+- name: cyberagent/calm3-22b-chat
   PORT: 8001
-  max-model-len: 4000
-  gpu-memory-utilization: 0.4
-  GPU_ID: 0
-  template1 : "<|user|>\n"
-  template2 : "<|end|>\n<|assistant|>"
+  max-model-len: 3000
+  gpu-memory-utilization: 0.8
+  GPU_ID: 1
+  template1 : "<|im_start|>system\nあなたは親切なAIアシスタントです。<|im_end|>\n<|im_start|>user\n"
+  template2 : "<|im_end|>\n<|im_start|>assistant"
   max_tokens: 2000
+
+#nemotronはapi keyで使う
+#- name: nvidia/Nemotron-4-340B-Instruct
+#  PORT: 9999
+#  max-model-len: 4000
+#  GPU_ID: 0
+
+#- name: microsoft/Phi-3-medium-128k-instruct
+#  PORT: 8001
+#  max-model-len: 4000
+#  gpu-memory-utilization: 0.4
+#  GPU_ID: 0
+#  template1 : "<|user|>\n"
+#  template2 : "<|end|>\n<|assistant|>"
+#  max_tokens: 2000
 
 #- name: Qwen/Qwen2-57B-A14B-Instruct
 #  PORT: 8003

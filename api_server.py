@@ -40,7 +40,7 @@ question_count = 0
 
 # %%
 while True:
-    if question_count > 1000:
+    if question_count > 200000:
         break
     try:
         row_id, question, inst = client.get_unanswered_question()
@@ -56,6 +56,7 @@ while True:
     print(question)
     try:
         model_name_A, model_name_B = random.sample(model_list, 2)
+        print("asking ", model_name_A, model_name_B)
         responseA = ask_llm_prompt(client_dict, model_name_A, question)
         responseB = ask_llm_prompt(client_dict, model_name_B, question)
         meta1 = model_name_A
