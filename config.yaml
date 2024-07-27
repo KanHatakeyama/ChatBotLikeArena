@@ -13,7 +13,9 @@
   max-model-len: 2048
   gpu-memory-utilization: 0.8
   GPU_ID: 0
+  #template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。"
   template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
+  #template2 : ""
   template2 : "\n\n### 応答:\n"
   max_tokens: 1000
 
