@@ -52,9 +52,10 @@ def ask_llm_prompt(client_dict, model_name, question,):
 
     client = client_dict[model_name]["client"]
 
+    """
     template1 = client_dict[model_name]["config"]["template1"]
     template2 = client_dict[model_name]["config"]["template2"]
-    """
+ 
     prompt = template1+question+template2
     completion = client.completions.create(model=model_name,
                                            prompt=prompt,
@@ -63,10 +64,18 @@ def ask_llm_prompt(client_dict, model_name, question,):
     return completion.choices[0].text.strip()  # .message.content.strip()
     """
     prompt = question
+
+    messages=[{"role": "user", "content": prompt}]
+    #if model_name.find("Llama-3-Swallow-70B") != -1:
+    #    messages=[ 
+    #        {"role": "system", "content": "あなたは誠実で優秀な日本人のアシスタントです。"},
+    #        {"role": "user", "content": prompt}
+    #        ]
+ 
+
     completion = client.chat.completions.create(model=model_name,
-                                            messages=[
-                                        {"role": "user", "content": prompt}
-                                            ],
+                                            messages=messages,
+                                            temperature=0.3,
                                            max_tokens=int(client_dict[model_name]["config"]["max_tokens"]))
     text=completion.choices[0].message.content.strip()
 
