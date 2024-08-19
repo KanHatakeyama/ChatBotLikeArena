@@ -8,13 +8,13 @@
 #  template2 : "\n\n### 応答:\n"
 #  max_tokens: 2000
 
-- name: team-hatakeyama-phase2/8b-iter-0719cleanediter-0006400-to-pass4-exp001-zero1-to-pass4-exp002-dpo-full-006-zero2
+- name: weblab-GENIAC/Tanuki-8B-dpo-v1.0
   PORT: 8000
   max-model-len: 2048
   gpu-memory-utilization: 0.8
   GPU_ID: 0
   #template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。"
-  template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
+  template1 : "<s>以下は、タスクを説明する指示です。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
   #template2 : ""
   template2 : "\n\n### 応答:\n"
   max_tokens: 1000
