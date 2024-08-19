@@ -40,7 +40,7 @@ question_count = 0
 
 # %%
 while True:
-    if question_count > 200000:
+    if question_count > 2000:
         break
     try:
         row_id, question, inst = client.get_unanswered_question()

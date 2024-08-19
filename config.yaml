@@ -60,6 +60,19 @@
   tensor-parallel-size: 2
   template1 : "<|begin_of_text|><|start_header_id|>system<|end_header_id|>あなたは誠実で優秀な日本人のアシスタントです。<|eot_id|><|start_header_id|>user<|end_header_id|>"
   template2 : "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+  
+#gpt3.5: api keyで使う
+- name: gpt-3.5-turbo
+  PORT: 8005
+  max-model-len: 2000
+  GPU_ID: 0
+#gpt40-mini api keyで使う
+- name: gpt-4o-mini-2024-07-18
+  PORT: 8006
+  max-model-len: 2000
+  GPU_ID: 0
+
+
 
 
 

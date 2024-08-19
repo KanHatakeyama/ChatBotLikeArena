@@ -15,6 +15,16 @@ except Exception as e:
     print("failed to setup nemotron api")
     print(e)
 
+API_KEY_OPENAI=""
+try:
+    with open("env/openai.key", "r") as f:
+        API_KEY_OPENAI= f.read().strip()
+    gpt= OpenAI(
+        api_key=API_KEY_OPENAI,
+    )
+except Exception as e:
+    print("failed to setup openai api")
+    print(e)
 
 def ask_llm(client_dict, model_name, question,
 
@@ -47,6 +57,26 @@ def ask_llm_prompt(client_dict, model_name, question,):
         )
 
         return chat_completion.choices[0].message.content
+
+    if model_name=="gpt-3.5-turbo":
+        chat_completion = gpt.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": question}
+            ]
+        )
+        return chat_completion.choices[0].message.content
+    if model_name=="gpt-4o-mini-2024-07-18":
+        chat_completion = gpt.chat.completions.create(
+            model="gpt-4o-mini-2024-07-18",
+            messages=[
+                {"role": "user", "content": question}
+            ]
+        )
+        return chat_completion.choices[0].message.content
+ 
+
+
 
     # 通常のローカルモデル
 
