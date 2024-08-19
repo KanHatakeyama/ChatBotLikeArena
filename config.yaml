@@ -28,6 +28,23 @@
   template2 : "<|im_end|>\n<|im_start|>assistant"
   max_tokens: 2000
 
+- name: team-hatakeyama-phase2/Tanuki-8x8B-dpo-v1.0
+  PORT: 8002
+  max-model-len: 2048
+  gpu-memory-utilization: 0.8
+  GPU_ID: 2,3
+  #template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。"
+  template1 : "<s>以下は、タスクを説明する指示です。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
+  #template2 : ""
+  template2 : "\n\n### 応答:\n"
+  max_tokens: 1000
+  tensor-parallel-size: 2
+#--trust-remote-code 
+
+#8x8bの注意点
+#conda activate eval3
+#export LIBRARY_PATH="/usr/local/cuda-12.2/lib64/stubs:$LIBRARY_PATH"
+
 #nemotronはapi keyで使う
 #- name: nvidia/Nemotron-4-340B-Instruct
 #  PORT: 9999
