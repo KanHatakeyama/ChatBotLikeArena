@@ -54,12 +54,27 @@ def ask_llm_prompt(client_dict, model_name, question,):
 
     template1 = client_dict[model_name]["config"]["template1"]
     template2 = client_dict[model_name]["config"]["template2"]
+    """
     prompt = template1+question+template2
     completion = client.completions.create(model=model_name,
                                            prompt=prompt,
                                            max_tokens=int(client_dict[model_name]["config"]["max_tokens"]))
-    return completion.choices[0].text.strip()  # .message.content.strip()
 
+    return completion.choices[0].text.strip()  # .message.content.strip()
+    """
+    prompt = question
+    completion = client.chat.completions.create(model=model_name,
+                                            messages=[
+                                        {"role": "user", "content": prompt}
+                                            ],
+                                           max_tokens=int(client_dict[model_name]["config"]["max_tokens"]))
+    text=completion.choices[0].message.content.strip()
+
+    #swallowはうまくeosでテキストを切れないので、ここで切る
+    if text.find("<|eot_id|>")!=-1:
+        text=text.split("<|eot_id|>")[0]
+
+    return text  # .message.content.strip()
 
 def get_client_dict(conf):
     server_dict = {}
