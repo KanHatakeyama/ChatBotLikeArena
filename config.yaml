@@ -66,11 +66,23 @@
   PORT: 8005
   max-model-len: 2000
   GPU_ID: 0
-#gpt40-mini api keyで使う
+#gpt4o-mini api keyで使う
 - name: gpt-4o-mini-2024-07-18
-  PORT: 8006
+  PORT: 8005
   max-model-len: 2000
   GPU_ID: 0
+#gpt4o api keyで使う
+- name: gpt-4o-2024-05-13
+  PORT: 8005
+  max-model-len: 2000
+  GPU_ID: 0
+#plamo api keyで使う
+- name: plamo-beta
+  PORT: 8005
+  max-model-len: 2000
+  GPU_ID: 0
+
+
 
 
 

@@ -15,16 +15,31 @@ except Exception as e:
     print("failed to setup nemotron api")
     print(e)
 
-API_KEY_OPENAI=""
+# openai
+API_KEY_OPENAI = ""
 try:
     with open("env/openai.key", "r") as f:
-        API_KEY_OPENAI= f.read().strip()
-    gpt= OpenAI(
+        API_KEY_OPENAI = f.read().strip()
+    gpt = OpenAI(
         api_key=API_KEY_OPENAI,
     )
 except Exception as e:
     print("failed to setup openai api")
     print(e)
+
+# plamo
+try:
+    API_HOST = 'https://platform.preferredai.jp'
+    with open("env/plamo.key", "r") as f:
+        API_KEY_PLAMO = f.read().strip()
+    plamo_client = OpenAI(
+        api_key=API_KEY_PLAMO,
+        base_url=f"{API_HOST}/api/completion/v1",
+    )
+except Exception as e:
+    print("failed to setup plamo api")
+    print(e)
+
 
 def ask_llm(client_dict, model_name, question,
 
@@ -57,8 +72,17 @@ def ask_llm_prompt(client_dict, model_name, question,):
         )
 
         return chat_completion.choices[0].message.content
+    # plamoのapiで呼び出す場合
+    if model_name == "plamo-beta":
+        chat_completion = plamo_client.chat.completions.create(
+            model="plamo-beta",
+            messages=[
+                {"role": "user", "content": question}],
+        )
 
-    if model_name=="gpt-3.5-turbo":
+        return chat_completion.choices[0].message.content
+    # openai
+    if model_name == "gpt-3.5-turbo":
         chat_completion = gpt.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -66,7 +90,7 @@ def ask_llm_prompt(client_dict, model_name, question,):
             ]
         )
         return chat_completion.choices[0].message.content
-    if model_name=="gpt-4o-mini-2024-07-18":
+    if model_name == "gpt-4o-mini-2024-07-18":
         chat_completion = gpt.chat.completions.create(
             model="gpt-4o-mini-2024-07-18",
             messages=[
@@ -74,9 +98,14 @@ def ask_llm_prompt(client_dict, model_name, question,):
             ]
         )
         return chat_completion.choices[0].message.content
- 
-
-
+    if model_name == "gpt-4o-2024-05-13":
+        chat_completion = gpt.chat.completions.create(
+            model="gpt-4o-2024-05-13",
+            messages=[
+                {"role": "user", "content": question}
+            ]
+        )
+        return chat_completion.choices[0].message.content
 
     # 通常のローカルモデル
 
@@ -95,25 +124,25 @@ def ask_llm_prompt(client_dict, model_name, question,):
     """
     prompt = question
 
-    messages=[{"role": "user", "content": prompt}]
-    #if model_name.find("Llama-3-Swallow-70B") != -1:
-    #    messages=[ 
+    messages = [{"role": "user", "content": prompt}]
+    # if model_name.find("Llama-3-Swallow-70B") != -1:
+    #    messages=[
     #        {"role": "system", "content": "あなたは誠実で優秀な日本人のアシスタントです。"},
     #        {"role": "user", "content": prompt}
     #        ]
- 
 
     completion = client.chat.completions.create(model=model_name,
-                                            messages=messages,
-                                            temperature=0.3,
-                                           max_tokens=int(client_dict[model_name]["config"]["max_tokens"]))
-    text=completion.choices[0].message.content.strip()
+                                                messages=messages,
+                                                temperature=0.3,
+                                                max_tokens=int(client_dict[model_name]["config"]["max_tokens"]))
+    text = completion.choices[0].message.content.strip()
 
-    #swallowはうまくeosでテキストを切れないので、ここで切る
-    if text.find("<|eot_id|>")!=-1:
-        text=text.split("<|eot_id|>")[0]
+    # swallowはうまくeosでテキストを切れないので、ここで切る
+    if text.find("<|eot_id|>") != -1:
+        text = text.split("<|eot_id|>")[0]
 
     return text  # .message.content.strip()
+
 
 def get_client_dict(conf):
     server_dict = {}
