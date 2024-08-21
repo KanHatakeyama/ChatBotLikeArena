@@ -29,6 +29,7 @@ class Client:
 
     def get_q_and_a(self):
         values = self.sheet.get_all_values()
+        self.values = values
 
         questions = []
         answers = []

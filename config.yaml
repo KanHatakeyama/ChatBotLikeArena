@@ -81,6 +81,15 @@
   PORT: 8005
   max-model-len: 2000
   GPU_ID: 0
+#google api keyで使う
+- name: gemini-1.5-pro
+  PORT: 8005
+  max-model-len: 2000
+  GPU_ID: 0 
+- name: gemini-1.5-flash
+  PORT: 8005
+  max-model-len: 2000
+  GPU_ID: 0 
 
 
 - name: elyza/Llama-3-ELYZA-JP-8B

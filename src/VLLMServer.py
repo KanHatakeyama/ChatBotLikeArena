@@ -1,5 +1,17 @@
 from openai import OpenAI
-# "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {user_input} ASSISTANT:"
+
+# google
+import google.generativeai as genai
+try:
+    with open("env/google.key", "r") as f:
+        GOOGLE_API_KEY = f.read().strip()
+    genai.configure(api_key=GOOGLE_API_KEY)
+    gemini_pro = genai.GenerativeModel("gemini-1.5-pro")
+    gemini_flash = genai.GenerativeModel("gemini-1.5-flash")
+except Exception as e:
+    print("failed to setup google api")
+    print(e)
+
 
 # nemotron関係
 API_KEY_NEMOTRON = ""
@@ -58,6 +70,15 @@ def ask_llm(client_dict, model_name, question,
 
 
 def ask_llm_prompt(client_dict, model_name, question,):
+
+    # google api
+    if model_name == "gemini-1.5-pro":
+        response = gemini_pro.generate_content(question)
+        return response.text.strip()
+    # google api
+    if model_name == "gemini-1.5-flash":
+        response = gemini_flash.generate_content(question)
+        return response.text.strip()
 
     # nemotronのapiで呼び出す場合
     if model_name == "nvidia/Nemotron-4-340B-Instruct":
