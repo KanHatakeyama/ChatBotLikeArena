@@ -1,8 +1,22 @@
 from openai import OpenAI
 
-# google
-import google.generativeai as genai
+#claude
 try:
+    import anthropic
+    with open("env/claude.key", "r") as f:
+        claude_client = anthropic.Anthropic(
+            api_key=f.read().strip(),
+        )
+except Exception as e:
+    print("failed to setup claude api")
+    print(e)
+
+
+
+
+# google
+try:
+    import google.generativeai as genai
     with open("env/google.key", "r") as f:
         GOOGLE_API_KEY = f.read().strip()
     genai.configure(api_key=GOOGLE_API_KEY)
@@ -70,6 +84,26 @@ def ask_llm(client_dict, model_name, question,
 
 
 def ask_llm_prompt(client_dict, model_name, question,):
+    #claude
+    if model_name=="claude-3-5-sonnet-20240620":
+        message = claude_client.messages.create(
+            model="claude-3-5-sonnet-20240620",
+            max_tokens=1000,
+            #temperature=0.3,
+            #system="あなたは面白いダジャレを言えるユーモアに満ちたアシスタントです。これから単語を言うのでダジャレを3つ考えてください。",
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text":question 
+                        }
+                    ]
+                }
+            ]
+        )
+        return (message.content[0].text).strip()
 
     # google api
     if model_name == "gemini-1.5-pro":

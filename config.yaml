@@ -60,7 +60,8 @@
   tensor-parallel-size: 2
   template1 : "<|begin_of_text|><|start_header_id|>system<|end_header_id|>あなたは誠実で優秀な日本人のアシスタントです。<|eot_id|><|start_header_id|>user<|end_header_id|>"
   template2 : "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
-  
+
+#api 関連。 port, max-model-len, GPU_IDはdummy 
 #gpt3.5: api keyで使う
 - name: gpt-3.5-turbo
   PORT: 8005
@@ -87,6 +88,11 @@
   max-model-len: 2000
   GPU_ID: 0 
 - name: gemini-1.5-flash
+  PORT: 8005
+  max-model-len: 2000
+  GPU_ID: 0 
+# claude api
+- name: claude-3-5-sonnet-20240620
   PORT: 8005
   max-model-len: 2000
   GPU_ID: 0 

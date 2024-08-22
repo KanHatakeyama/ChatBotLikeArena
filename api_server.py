@@ -71,7 +71,7 @@ while True:
 
         # 選択確率の重みを1/出現頻度にして､確率的に選択
         target_model_name = random.choices([i for i in model_counter.keys()], weights=[
-                                           1/i[1] for i in model_counter.items()])[0]
+                                           1/i[1]/i[1] for i in model_counter.items()])[0]
 
         other_models = [i for i in client_dict.keys() if i !=
                         target_model_name]
